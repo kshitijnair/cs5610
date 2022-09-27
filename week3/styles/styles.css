@@ -38,3 +38,7 @@ a[href="https://github.com"]::after {
 h2::first-letter {
     font-size: 3rem;
 }
+
+a[href="https://github.com"] {
+    margin-left: 20px;
+}
