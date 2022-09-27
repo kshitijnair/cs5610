@@ -25,7 +25,7 @@ h1 {
     margin: 10px 0px 10px 0px;
 }
 
-a[href=""]:hover {
+a[href="https://github.com"]:hover {
     color: crimson;
 }
 
