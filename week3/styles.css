@@ -3,3 +3,15 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 400;
 }
+
+header {
+    text-align: center;
+    border-bottom: 2px dotted darkslateblue;
+}
+
+h1 {
+    color: #1050aa;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2.2em;
+
+}
