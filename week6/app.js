@@ -5,12 +5,13 @@ const logger = require('./logger.js');
 const app = express();
 const port = 3000;
 
-
+// Route 1
 app.get('/', (req, res)=> {
     res.send("Hello from the Node.js app! ;)");
     console.log("The user is visiting the Home page.")
 })
 
+// Route 2
 app.get("/tasks", (req, res) => {
     res.send("<h1>To Do Tasks:</h1>\
                 <ol><li>Cook Food</li><li>Pet Capibara</li><li>Get Groceries</li></ol>")
@@ -18,10 +19,31 @@ app.get("/tasks", (req, res) => {
     console.log(req.params);
 })
 
+// Route 3 - Parameter
 app.get("/tasks/:taskID", (req, res) => {
-    res.send(`<h1>Youre visiting Task #${req.params.taskID}</h1>`);
-    console.log("The user is visiting the special route to-do list page.");
+    res.send(`<h1>You're visiting Task #${req.params.taskID}</h1>`);
+    console.log("The user is visiting the to-do list page with a parameter.");
     console.log(req.params);
+})
+
+// Route 4 - Multiple Parameters
+app.get("/tasks/:taskID/:nameID", (req, res) => {
+    res.send(`<h1>You're visiting Task #${req.params.taskID} assigned to ${req.params.nameID}</h1>`);
+    console.log("The user is visiting the to-do list page with multiple parameter.");
+    console.log(req.params);
+})
+
+// Route 5 - Queries
+app.get("/user", (req, res) => {
+    for (const key in req.query) {
+        console.log(key, req.query[key]);
+    }
+    if (!req.query.name || req.query.course) {
+        res.status(400).send("Oh no, Bad Request!")
+    } else {
+        res.send(`User ${req.query.name} is taking the ${req.query.course} course`);
+    }
+    console.log("The user is visiting the multiple queries list page.");
 })
 
 app.listen(port, () => {
