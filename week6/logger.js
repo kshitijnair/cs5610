@@ -1,10 +1,10 @@
 const version = 1.0;
 
-function log() {
-    console.log("Logged successfully!");
+function log(text) {
+    console.log(text);
 }
 
 module.exports = {
-    log: log,
+    logFunction: log,
     version: version
 }

@@ -16,4 +16,5 @@ fs.writeFile('newFile.txt', data, (err) => {
     }
 })
 
-console.log(logger);
+// console.log(logger);
+logger.logFunction('This is a console output from the logger module.')
