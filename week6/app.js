@@ -7,11 +7,23 @@ const port = 3000;
 
 
 app.get('/', (req, res)=> {
-    res.send("<h1>Hello from the Node.js app! ;)</h1>");
-    console.log("The user is visiting the landing page.")
+    res.send("Hello from the Node.js app! ;)");
+    console.log("The user is visiting the Home page.")
 })
 
-app.listen(port, ()=> {
+app.get("/tasks", (req, res) => {
+    res.send("<h1>To Do Tasks:</h1>\
+                <ol><li>Cook Food</li><li>Pet Capibara</li><li>Get Groceries</li></ol>")
+    console.log("The user is visiting the To-do list page.");
+})
+
+app.get("/tasks/:taskID", (req, res) => {
+    res.send(`<h1>Youre visiting Task #${req.params.taskID}</h1>`);
+    console.log("The user is visiting the special route to-do list page.");
+    console.log(req.params)
+})
+
+app.listen(port, () => {
     console.log(`Listening from app.js from PORT ${port}`);
 })
 
