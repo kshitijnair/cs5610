@@ -38,10 +38,10 @@ app.get("/user", (req, res) => {
     for (const key in req.query) {
         console.log(key, req.query[key]);
     }
-    if (!req.query.name || req.query.course) {
+    if (!req.query.name || !req.query.course) {
         res.status(400).send("Oh no, Bad Request!")
     } else {
-        res.send(`User ${req.query.name} is taking the ${req.query.course} course`);
+        res.send(`<h1>User ${req.query.name} is taking the ${req.query.course} course</h1>`);
     }
     console.log("The user is visiting the multiple queries list page.");
 })
