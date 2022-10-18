@@ -21,9 +21,9 @@ while(power < 1024) {
 
 // do-while loop block
 
-do {
-    let username = window.prompt("Your name?");
-    alert(`Welcome ${username}!`);
+// do {
+//     let username = window.prompt("Your name?");
+//     alert(`Welcome ${username}!`);
 
-} while (typeof username != Number || username.length === 1)
+// } while (typeof username != Number || username.length === 1)
     
