@@ -1,9 +1,20 @@
 const fs = require('fs');
 const express = require('express');
 const logger = require('./logger.js');
+const { nextTick } = require('process');
 
 const app = express();
 const port = 3000;
+
+// Middleware
+// function middleware() {
+//     logger.logFunction("Middleware is being called.");
+//     // next();
+// }
+// app.use(middleware)
+
+// Serving static files
+app.use(express.static('public'));
 
 // Route 1
 app.get('/', (req, res)=> {
