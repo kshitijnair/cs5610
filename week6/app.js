@@ -1,4 +1,5 @@
 const fs = require('fs');
+const util = require('util');
 const express = require('express');
 const logger = require('./logger.js');
 const { nextTick } = require('process');
@@ -74,6 +75,17 @@ fs.writeFile('newFile.txt', data, (err) => {
             // else console.log(`This is the data from the new file: ${data}`)
         })
     }
+})
+
+const readFilepromise = util.promisify(fs.readFile)
+const writeFilepromise = util.promisify(fs.writeFile)
+
+writeFilepromise('newFile.txt', data).then(() => {
+    return readFilepromise('newFile.txt', {encoding: "utf-8"});
+}).then(() => {
+    console.log(data);
+}).catch((err) => {
+    console.log(err);
 })
 
 // console.log(logger);
