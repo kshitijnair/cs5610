@@ -29,31 +29,29 @@ app.get('/', (req, res)=> {
 })
 
 // Route 2
-app.get("/tasks", (req, res) => {
+app.get("/tasks", async (req, res) => {
     // res.send("<h1>To Do Tasks:</h1>\
     //             <ol><li>Cook Food</li><li>Pet Capibara</li><li>Get Groceries</li></ol>")
     // console.log("The user is visiting the To-do list page.");
     // console.log(req.params);
-    axios.get(`https://jsonplaceholder.typicode.com/todos/`).then((jsonData) => {
-        console.log(jsonData);
-        // res.json(jsonData);
-        // res.render('jsonTest', {json: jsonData})
-        res.status(jsonData.status).json(jsonData.data)
-    })
+    const jsonData = await axios.get(`https://jsonplaceholder.typicode.com/todos/`)
+    console.log(jsonData);
+    // res.json(jsonData);
+    // res.render('jsonTest', {json: jsonData})
+    res.status(jsonData.status).json(jsonData.data)
 })
 
 // Route 3 - Parameter
-app.get("/tasks/:taskID", (req, res) => {
+app.get("/tasks/:taskID", async (req, res) => {
     // res.send(`<h1>You're visiting Task #${req.params.taskID}</h1>`);
     // console.log("The user is visiting the to-do list page with a parameter.");
     // console.log(req.params);
-    axios.get(`https://jsonplaceholder.typicode.com/todos/${req.params.taskID}`).then((jsonData) => {
-        console.log(jsonData);
-        // res.json(jsonData);
-        // res.render('jsonTest', {json: jsonData})
-        // res.status(jsonData.status).json(jsonData.data)
-        res.render("taskID", {id: jsonData.data.id, title: jsonData.data.title})
-    })
+    let jsonData = await axios.get(`https://jsonplaceholder.typicode.com/todos/${req.params.taskID}`)
+    console.log(jsonData);
+    // res.json(jsonData);
+    // res.render('jsonTest', {json: jsonData})
+    // res.status(jsonData.status).json(jsonData.data)
+    res.render("taskID", {id: jsonData.data.id, title: jsonData.data.title})
 })
 
 // Route 4 - Multiple Parameters
@@ -109,4 +107,14 @@ writeFilepromise('newFile.txt', data).then(() => {
 // console.log(logger);
 // logger.logFunction('This is a console output from the logger module.')
 
+// async/await example
 
+async function asyncAwaitTest() {
+    try {
+        await writeFilepromise('newFile.txt', data);
+        const data = await readFilepromise('newFile.txt', {encoding: 'utf-8'});
+        console.log(data);
+    } catch(err) {
+        console.log(err);
+    }
+}
