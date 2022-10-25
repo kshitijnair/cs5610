@@ -1,11 +1,15 @@
 const fs = require('fs');
 const util = require('util');
+const axios = require('axios')
 const express = require('express');
 const logger = require('./logger.js');
-const { nextTick } = require('process');
+const { json } = require('express');
 
 const app = express();
 const port = 3000;
+
+app.set("view engine", "pug");
+app.set("views", "./views");
 
 // Middleware
 // function middleware() {
@@ -15,27 +19,41 @@ const port = 3000;
 // app.use(middleware)
 
 // Serving static files
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 // Route 1
 app.get('/', (req, res)=> {
-    res.send("Hello from the Node.js app! ;)");
+    // res.send("Hello from the Node.js app! ;)");
+    res.render("index", {message: "this is a message for PUG"})
     console.log("The user is visiting the Home page.")
 })
 
 // Route 2
 app.get("/tasks", (req, res) => {
-    res.send("<h1>To Do Tasks:</h1>\
-                <ol><li>Cook Food</li><li>Pet Capibara</li><li>Get Groceries</li></ol>")
-    console.log("The user is visiting the To-do list page.");
-    console.log(req.params);
+    // res.send("<h1>To Do Tasks:</h1>\
+    //             <ol><li>Cook Food</li><li>Pet Capibara</li><li>Get Groceries</li></ol>")
+    // console.log("The user is visiting the To-do list page.");
+    // console.log(req.params);
+    axios.get(`https://jsonplaceholder.typicode.com/todos/`).then((jsonData) => {
+        console.log(jsonData);
+        // res.json(jsonData);
+        // res.render('jsonTest', {json: jsonData})
+        res.status(jsonData.status).json(jsonData.data)
+    })
 })
 
 // Route 3 - Parameter
 app.get("/tasks/:taskID", (req, res) => {
-    res.send(`<h1>You're visiting Task #${req.params.taskID}</h1>`);
-    console.log("The user is visiting the to-do list page with a parameter.");
-    console.log(req.params);
+    // res.send(`<h1>You're visiting Task #${req.params.taskID}</h1>`);
+    // console.log("The user is visiting the to-do list page with a parameter.");
+    // console.log(req.params);
+    axios.get(`https://jsonplaceholder.typicode.com/todos/${req.params.taskID}`).then((jsonData) => {
+        console.log(jsonData);
+        // res.json(jsonData);
+        // res.render('jsonTest', {json: jsonData})
+        // res.status(jsonData.status).json(jsonData.data)
+        res.render("taskID", {id: jsonData.data.id, title: jsonData.data.title})
+    })
 })
 
 // Route 4 - Multiple Parameters
@@ -90,3 +108,5 @@ writeFilepromise('newFile.txt', data).then(() => {
 
 // console.log(logger);
 // logger.logFunction('This is a console output from the logger module.')
+
+
